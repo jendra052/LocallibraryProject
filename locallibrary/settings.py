@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-3yg!#d!l(1qysc(z4^hvnm*-cbv*ke+-a)$np7rg$3pxq_)%f('
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.pythonanywhere.com']
 
 
 # Application definition
@@ -117,7 +117,26 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
 
-STATIC_URL = 'static/'
+# Static files (CSS, JavaScript, Images)
+# https://docs.djangoproject.com/en/4.0/howto/static-files/
+
+
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
+STATIC_DIR = os.path.join(BASE_DIR,'static')
+MEDIA_DIR = os.path.join(BASE_DIR,'media')
+
+if not DEBUG:
+    STATIC_URL = '/static/'
+    #STATICFILES_DIRS = [STATIC_DIR,"/var/www/static"]
+    STATIC_ROOT = os.path.join(BASE_DIR,"static")
+    MEDIA_ROOT = MEDIA_DIR
+    MEDIA_URL = '/media/'
+
+else:
+    MEDIA_URL = '/media/'
+    STATIC_URL = '/static/'
+# with products in the database when DEBUG = False
+# pythonanywhere should serve the static files automatically
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
